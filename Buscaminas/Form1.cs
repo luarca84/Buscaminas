@@ -60,6 +60,8 @@ namespace Buscaminas
             dgvMinas.ReadOnly = true;
             dgvMinas.CellClick -= new DataGridViewCellEventHandler(dgvMinas_CellClick);
             dgvMinas.CellClick += new DataGridViewCellEventHandler(dgvMinas_CellClick);
+            dgvMinas.MouseClick -= new MouseEventHandler(dgvMinas_MouseClick);
+            dgvMinas.MouseClick += new MouseEventHandler(dgvMinas_MouseClick);
 
             for (int i = 0; i < numDificultad; i++)
                 for (int j = 0; j < numDificultad; j++)
@@ -78,6 +80,28 @@ namespace Buscaminas
                     n--;
                 else
                     matrix[i, j] = CTE_MINE;
+            }
+        }
+
+        void dgvMinas_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right) 
+            {
+                System.Windows.Forms.DataGridView.HitTestInfo info = dgvMinas.HitTest(e.X, e.Y);
+                if (info.RowIndex >= 0 && info.ColumnIndex >= 0) 
+                {
+                    DataGridViewCell cell = dgvMinas[info.ColumnIndex, info.RowIndex];
+                    if (cell is DataGridViewButtonCell) 
+                    {
+                        DataGridViewButtonCell buttonCell = (DataGridViewButtonCell)cell;
+                        if (buttonCell.Value.ToString() == string.Empty)
+                            buttonCell.Value = "F";
+                        else if (buttonCell.Value.ToString() == "F")
+                            buttonCell.Value = "?";
+                        else if (buttonCell.Value.ToString() == "?")
+                            buttonCell.Value = "";
+                    }
+                }
             }
         }
 
@@ -123,7 +147,7 @@ namespace Buscaminas
             int n = 0;
             for (int i = 0; i < numDificultad; i++)
                 for (int j = 0; j < numDificultad; j++)
-                    if (dgvMinas[i, j].Value.ToString() == string.Empty)
+                    if (dgvMinas[i, j] is DataGridViewButtonCell)
                     {
                         n++;
                     }
