@@ -22,6 +22,13 @@ namespace Buscaminas
         int numDificultad = 10;
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            PlayNewGame();
+
+        }
+
+        private void PlayNewGame()
+        {
+            System.Media.SystemSounds.Asterisk.Play();
             numMinas = int.Parse(txtMinas.Text);
             numDificultad = int.Parse(txtDificultad.Text);
 
@@ -40,16 +47,16 @@ namespace Buscaminas
             dgvMinas.CellClick -= new DataGridViewCellEventHandler(dgvMinas_CellClick);
             dgvMinas.CellClick += new DataGridViewCellEventHandler(dgvMinas_CellClick);
 
-            for(int i =0; i< numDificultad;i++)
+            for (int i = 0; i < numDificultad; i++)
                 for (int j = 0; j < numDificultad; j++)
                 {
                     DataGridViewButtonCell b = new DataGridViewButtonCell();
                     dgvMinas[i, j] = b;
                 }
 
-            matrix = new int[numDificultad,numDificultad];
+            matrix = new int[numDificultad, numDificultad];
             Random r = new Random();
-            for (int n = 0; n < numMinas; n++) 
+            for (int n = 0; n < numMinas; n++)
             {
                 int i = r.Next(numDificultad);
                 int j = r.Next(numDificultad);
@@ -58,19 +65,20 @@ namespace Buscaminas
                 else
                     matrix[i, j] = CTE_MINE;
             }
-
         }
 
         void dgvMinas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             if (dgvMinas.CurrentCell == null)
                 return;
             dgvMinas[e.ColumnIndex, e.RowIndex] = new DataGridViewTextBoxCell();
             if (matrix[e.ColumnIndex, e.RowIndex] == CTE_MINE)
             {
                 dgvMinas[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
-                dgvMinas.ClearSelection();
+                dgvMinas.ClearSelection();                
                 MessageBox.Show("Game Over");
+                PlayNewGame();
             }
             else
             {
@@ -85,7 +93,10 @@ namespace Buscaminas
 
             int numButtons = GetNumButtons();
             if (numButtons == numMinas)
-                MessageBox.Show("You Win");
+            {              
+                MessageBox.Show("You Win");                
+                PlayNewGame();
+            }
 
             dgvMinas.ClearSelection();
 
