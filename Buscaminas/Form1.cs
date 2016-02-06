@@ -14,20 +14,34 @@ namespace Buscaminas
         public Form1()
         {
             InitializeComponent();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+            lblTiempo.Visible = false;
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            lblHora.Text =   "Hora:    " + DateTime.Now.ToString("hh:mm:ss");
+            TimeSpan duration = DateTime.Now - dateTimeInit;
+            lblTiempo.Text = "Tiempo: " + duration.ToString(@"hh\:mm\:ss");
         }
 
         const int CTE_MINE = 999;
         int[,] matrix = null;
         int numMinas = 10;
         int numDificultad = 10;
+        Timer timer = new Timer();
+        DateTime dateTimeInit = DateTime.Now;
         private void btnPlay_Click(object sender, EventArgs e)
         {
             PlayNewGame();
-
+            lblTiempo.Visible = true;
         }
 
         private void PlayNewGame()
         {
+            timer.Start();
+            dateTimeInit = DateTime.Now;
             System.Media.SystemSounds.Asterisk.Play();
             numMinas = int.Parse(txtMinas.Text);
             numDificultad = int.Parse(txtDificultad.Text);
@@ -76,7 +90,8 @@ namespace Buscaminas
             if (matrix[e.ColumnIndex, e.RowIndex] == CTE_MINE)
             {
                 dgvMinas[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
-                dgvMinas.ClearSelection();                
+                dgvMinas.ClearSelection();
+                timer.Stop();
                 MessageBox.Show("Game Over");
                 PlayNewGame();
             }
@@ -93,7 +108,8 @@ namespace Buscaminas
 
             int numButtons = GetNumButtons();
             if (numButtons == numMinas)
-            {              
+            {
+                timer.Stop();
                 MessageBox.Show("You Win");                
                 PlayNewGame();
             }

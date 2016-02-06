@@ -37,6 +37,8 @@
             this.lblDificultad = new System.Windows.Forms.Label();
             this.txtMinas = new System.Windows.Forms.TextBox();
             this.lblMinas = new System.Windows.Forms.Label();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblTiempo = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMinas)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,6 +70,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblTiempo);
+            this.panel1.Controls.Add(this.lblHora);
             this.panel1.Controls.Add(this.btnPlay);
             this.panel1.Controls.Add(this.txtDificultad);
             this.panel1.Controls.Add(this.lblDificultad);
@@ -83,7 +87,7 @@
             // 
             this.btnPlay.Location = new System.Drawing.Point(118, 7);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(313, 49);
+            this.btnPlay.Size = new System.Drawing.Size(219, 49);
             this.btnPlay.TabIndex = 4;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
@@ -123,6 +127,24 @@
             this.lblMinas.TabIndex = 0;
             this.lblMinas.Text = "Minas";
             // 
+            // lblHora
+            // 
+            this.lblHora.AutoSize = true;
+            this.lblHora.Location = new System.Drawing.Point(343, 10);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(30, 13);
+            this.lblHora.TabIndex = 5;
+            this.lblHora.Text = "Hora";
+            // 
+            // lblTiempo
+            // 
+            this.lblTiempo.AutoSize = true;
+            this.lblTiempo.Location = new System.Drawing.Point(343, 25);
+            this.lblTiempo.Name = "lblTiempo";
+            this.lblTiempo.Size = new System.Drawing.Size(42, 13);
+            this.lblTiempo.TabIndex = 6;
+            this.lblTiempo.Text = "Tiempo";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,6 +173,8 @@
         private System.Windows.Forms.Label lblDificultad;
         private System.Windows.Forms.TextBox txtMinas;
         private System.Windows.Forms.Label lblMinas;
+        private System.Windows.Forms.Label lblHora;
+        private System.Windows.Forms.Label lblTiempo;
     }
 }
 
