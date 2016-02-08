@@ -94,12 +94,16 @@ namespace Buscaminas
                     if (cell is DataGridViewButtonCell) 
                     {
                         DataGridViewButtonCell buttonCell = (DataGridViewButtonCell)cell;
-                        if (buttonCell.Value.ToString() == string.Empty)
-                            buttonCell.Value = "F";
-                        else if (buttonCell.Value.ToString() == "F")
-                            buttonCell.Value = "?";
-                        else if (buttonCell.Value.ToString() == "?")
-                            buttonCell.Value = "";
+                        if (!(buttonCell is DataGridViewButtonCell_Flag || buttonCell is DataGridViewButtonCell_QuestionMark))
+                        {
+                            dgvMinas[info.ColumnIndex, info.RowIndex] = new DataGridViewButtonCell_Flag();
+                        }
+                        else if (buttonCell is DataGridViewButtonCell_Flag)
+                        {
+                            dgvMinas[info.ColumnIndex, info.RowIndex] = new DataGridViewButtonCell_QuestionMark();
+                        }
+                        else if (buttonCell is DataGridViewButtonCell_QuestionMark)
+                            dgvMinas[info.ColumnIndex, info.RowIndex] = new DataGridViewButtonCell();
                     }
                 }
             }
@@ -215,6 +219,27 @@ namespace Buscaminas
             if (i >= 0 && i < numDificultad && j >= 0 && j < numDificultad)
                 return matrix[i, j] == CTE_MINE;
             return false;
+        }
+    }
+
+
+    public class DataGridViewButtonCell_Flag : DataGridViewButtonCell
+    {
+        Image del = Image.FromFile(".\\Images\\flag.ico");
+        protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates elementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
+        {
+            base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
+            graphics.DrawImage(del, cellBounds);
+        }
+    }
+
+    public class DataGridViewButtonCell_QuestionMark : DataGridViewButtonCell
+    {
+        Image del = Image.FromFile(".\\Images\\QuestionMark.ico");
+        protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates elementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
+        {
+            base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
+            graphics.DrawImage(del, cellBounds);
         }
     }
 }
