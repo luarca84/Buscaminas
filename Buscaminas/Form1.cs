@@ -117,7 +117,7 @@ namespace Buscaminas
             dgvMinas[e.ColumnIndex, e.RowIndex] = new DataGridViewTextBoxCell();
             if (matrix[e.ColumnIndex, e.RowIndex] == CTE_MINE)
             {
-                dgvMinas[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
+                dgvMinas[e.ColumnIndex, e.RowIndex] = new DataGridViewButtonCell_Bomb();
                 dgvMinas.ClearSelection();
                 timer.Stop();
                 MessageBox.Show("Game Over");
@@ -236,6 +236,16 @@ namespace Buscaminas
     public class DataGridViewButtonCell_QuestionMark : DataGridViewButtonCell
     {
         Image del = Image.FromFile(".\\Images\\QuestionMark.ico");
+        protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates elementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
+        {
+            base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
+            graphics.DrawImage(del, cellBounds);
+        }
+    }
+
+    public class DataGridViewButtonCell_Bomb : DataGridViewButtonCell
+    {
+        Image del = Image.FromFile(".\\Images\\bomb.ico");
         protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates elementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
         {
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
