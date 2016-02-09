@@ -230,6 +230,7 @@ namespace Buscaminas
         {
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             graphics.DrawImage(del, cellBounds);
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         }
     }
 
@@ -240,6 +241,7 @@ namespace Buscaminas
         {
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             graphics.DrawImage(del, cellBounds);
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         }
     }
 
@@ -250,6 +252,7 @@ namespace Buscaminas
         {
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             graphics.DrawImage(del, cellBounds);
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         }
     }
 }
